@@ -24,7 +24,6 @@ public final class IntegerDuplicateDeleter extends DuplicateDeleter<Integer> {
         int indexForExactDupesArr = 0;
         int freq = 1;
         for (int i = 1; i < super.array.length; i++) {
-//            int freq = 1;
             System.out.println("arry i value is " + array[i] + " and frequency is " + freq);
             if (array[i] == array[i - 1]) {
                 System.out.print("Yes! " + array[i] + " matches " + array[i - 1]);
@@ -48,30 +47,43 @@ public final class IntegerDuplicateDeleter extends DuplicateDeleter<Integer> {
         System.out.println("number of dupe ocurrences is: " + exactDupesOccurances);
         System.out.println("Values in new really long original array: ");
         for (int i = 0; i < exactDupesOccurances; i++) {
-            System.out.print(exactDupesValues[i]);
+            System.out.println(exactDupesValues[i]);
         }
 
 
-
-
-
-        for (int i = 0; i < exactDupesOccurances; i++) {
-            //System.out.println("values of dupe occurances: " + exactDupesValues[i]);
-        }
         //iterate thru og arr and add non exactDupeVals to tempArr
-        Integer[] tempArr = new Integer[super.array.length - (exactDupesOccurances * exactNumberOfDuplications)];
-        //System.out.println("length of new arr is: " + tempArr.length);
+        Integer[] finArr = new Integer[super.array.length - (exactDupesOccurances * exactNumberOfDuplications)];
+        System.out.println("length of new arr is: " + finArr.length);
+        Boolean b = false; // DOES NOT MATCH
         int insertIndex = 0;
-//        Integer[] finNoDupes = new Integer[super.array.length - exactNumberOfDuplications];
-        for (int i = 0; i < super.array.length; i++) {
+//        int m = 0;
+        for (Integer i : super.array) {
             for (int j = 0; j < exactDupesOccurances; j++) {
-                if (super.array[i] != exactDupesValues[j]) {
-                    tempArr[insertIndex] = super.array[i];
-                    insertIndex++;
+//                System.out.println("Array["+m+"]: "+i+" -- Dups["+j+"]: "+exactDupesValues[j]);
+                b = false; //CONFIRMING THAT WE START WITH FALSE, RESETTING TO FALSE FOR NEXT J (0 5 9) VALUE LOOP
+                if (i == exactDupesValues[j]) {
+                    b = true; //IF MATCHES, SET TO TRUE, AND THEN BREAK
+                    System.out.println("Break! bc Matches!");
+                    break;
                 }
+//                break;
             }
+            System.out.println("----------------------------------------");
+            if (!b) { //IF FALSE, SAVE THE NUMBER
+                //System.out.println("before " + i + " is stored into fin arr, value now: " + finArr[insertIndex]);
+                finArr[insertIndex] = i;
+                //System.out.println("after stored " + i + " is stored into fin arr, value now: " +
+                // finArr[insertIndex]);
+                System.out.println("[[Final Array currently contains]]: "+ Arrays.toString(finArr));
+                for (Integer integer : finArr) {
+                    //System.out.println("fin values: " + integer);
+                }
+                //System.out.println("finished,next");
+                insertIndex++;
+            }
+//            m++;
         }
-        return tempArr;
+        return finArr;
 //        return new Integer[0];
     }
 }
