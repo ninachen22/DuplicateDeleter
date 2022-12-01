@@ -24,32 +24,31 @@ public final class IntegerDuplicateDeleter extends DuplicateDeleter<Integer> {
         int indexForExactDupesArr = 0;
         int freq = 1;
         for (int i = 1; i < super.array.length; i++) {
-            System.out.println("arry i value is " + array[i] + " and frequency is " + freq);
+            System.out.println("array i value is " + array[i] + " and frequency is " + freq);
             if (array[i] == array[i - 1]) {
                 System.out.print("Yes! " + array[i] + " matches " + array[i - 1]);
                 freq++;
                 System.out.println(". Frequency changed to " + freq);
-                if (freq == exactNumberOfDuplications) {
-                    exactDupesOccurances++;
-                    System.out.println("[Item to store]: " +array[i]);
-                    System.out.println("[Current index value]: " +exactDupesValues[indexForExactDupesArr]);
-                    exactDupesValues[indexForExactDupesArr] = super.array[i];
-                    System.out.println("[New index value]: " +exactDupesValues[indexForExactDupesArr]);
-                    for (int j = 0; j < exactDupesOccurances; j++) {
-                        System.out.println("dupe values: " + exactDupesValues[j]);
-                    }
-                    indexForExactDupesArr++;
-                }
-            } else {
-                freq = 1;
+                if (i != super.array.length-1) continue;
             }
+            if (freq == exactNumberOfDuplications) {
+                exactDupesOccurances++;
+                System.out.println("[Item to store]: " +array[i]);
+                System.out.println("[Current index value]: " +exactDupesValues[indexForExactDupesArr]);
+                exactDupesValues[indexForExactDupesArr] = super.array[i-1];
+                System.out.println("[New index value]: " +exactDupesValues[indexForExactDupesArr]);
+                for (int j = 0; j < exactDupesOccurances; j++) {
+                    System.out.println("dupe values: " + exactDupesValues[j]);
+                }
+                indexForExactDupesArr++;
+            }
+            freq = 1;
         }
         System.out.println("number of dupe ocurrences is: " + exactDupesOccurances);
         System.out.println("Values in new really long original array: ");
         for (int i = 0; i < exactDupesOccurances; i++) {
-            System.out.println(exactDupesValues[i]);
+//            System.out.println(exactDupesValues[i]);
         }
-
 
         //iterate thru og arr and add non exactDupeVals to tempArr
         Integer[] finArr = new Integer[super.array.length - (exactDupesOccurances * exactNumberOfDuplications)];
@@ -66,7 +65,6 @@ public final class IntegerDuplicateDeleter extends DuplicateDeleter<Integer> {
                     System.out.println("Break! bc Matches!");
                     break;
                 }
-//                break;
             }
             System.out.println("----------------------------------------");
             if (!b) { //IF FALSE, SAVE THE NUMBER
@@ -80,6 +78,7 @@ public final class IntegerDuplicateDeleter extends DuplicateDeleter<Integer> {
                 }
                 //System.out.println("finished,next");
                 insertIndex++;
+                System.out.println(insertIndex);
             }
 //            m++;
         }
