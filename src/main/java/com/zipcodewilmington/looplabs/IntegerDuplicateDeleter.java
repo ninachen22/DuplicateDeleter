@@ -14,7 +14,55 @@ public final class IntegerDuplicateDeleter extends DuplicateDeleter<Integer> {
 
     @Override
     public Integer[] removeDuplicates(int maxNumberOfDuplications) {
-        return new Integer[0];
+        Integer[] dupArr = new Integer[array.length];
+        int dupArrIndex = 0;
+        int freqOfNum = 1;
+        for (int i = 1; i < array.length; i++) {
+
+            if (array[i] == array[i - 1]) {
+                freqOfNum++;
+                if (i != array.length - 1) continue;
+            }
+            if (freqOfNum >= maxNumberOfDuplications) {
+                for (int j = 0; j < freqOfNum; j++) {
+                    // adds that dup value freq amt of times to dupArr
+                    System.out.println("freq of " + array[i - 1] + " is: " + freqOfNum);
+                    dupArr[dupArrIndex] = array[i - 1];
+                    System.out.println("dupArr index " + dupArrIndex + " value: " + array[i - 1]);
+                    dupArrIndex++;
+                    System.out.println("------------------------");
+                }
+            }
+            System.out.println("before freq reset: " + freqOfNum);
+            freqOfNum = 1;
+            System.out.println("after freq reset: " + freqOfNum);
+            System.out.println("**************************");
+        }
+        System.out.println("**************************");
+        for (int j = 0; j < dupArrIndex; j++) {
+            System.out.println("dupe values: " + dupArr[j]);
+        }
+        Integer[] finArr = new Integer[array.length - dupArrIndex];
+        System.out.println("finArr length: " + finArr.length); // correct
+        int finArrIndex = 0;
+        int j = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != dupArr[j]) {
+
+                System.out.println("array["+i+"] " + array[i] + " does not equal dupArr["+j+"] " + dupArr[j] + " a " +
+                        "dupe");
+                finArr[finArrIndex] = array[i];
+                System.out.println("finArr index " + finArrIndex + " is: " + array[i]);
+                finArrIndex++;
+            } else {
+                j++;
+            }
+        }
+        if (maxNumberOfDuplications < 2) {
+            finArr = new Integer[0];
+        }
+        return finArr;
+//        return new Integer[0];
     }
 
     @Override
@@ -29,14 +77,14 @@ public final class IntegerDuplicateDeleter extends DuplicateDeleter<Integer> {
                 System.out.print("Yes! " + array[i] + " matches " + array[i - 1]);
                 freq++;
                 System.out.println(". Frequency changed to " + freq);
-                if (i != super.array.length-1) continue;
+                if (i != super.array.length - 1) continue;
             }
             if (freq == exactNumberOfDuplications) {
                 exactDupesOccurances++;
-                System.out.println("[Item to store]: " +array[i]);
-                System.out.println("[Current index value]: " +exactDupesValues[indexForExactDupesArr]);
-                exactDupesValues[indexForExactDupesArr] = super.array[i-1];
-                System.out.println("[New index value]: " +exactDupesValues[indexForExactDupesArr]);
+                System.out.println("[Item to store]: " + array[i]);
+                System.out.println("[Current index value]: " + exactDupesValues[indexForExactDupesArr]);
+                exactDupesValues[indexForExactDupesArr] = super.array[i - 1];
+                System.out.println("[New index value]: " + exactDupesValues[indexForExactDupesArr]);
                 for (int j = 0; j < exactDupesOccurances; j++) {
                     System.out.println("dupe values: " + exactDupesValues[j]);
                 }
@@ -72,7 +120,7 @@ public final class IntegerDuplicateDeleter extends DuplicateDeleter<Integer> {
                 finArr[insertIndex] = i;
                 //System.out.println("after stored " + i + " is stored into fin arr, value now: " +
                 // finArr[insertIndex]);
-                System.out.println("[[Final Array currently contains]]: "+ Arrays.toString(finArr));
+                System.out.println("[[Final Array currently contains]]: " + Arrays.toString(finArr));
                 for (Integer integer : finArr) {
                     //System.out.println("fin values: " + integer);
                 }
