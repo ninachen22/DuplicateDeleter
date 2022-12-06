@@ -76,9 +76,9 @@ public final class StringDuplicateDeleter extends DuplicateDeleter<String> {
                 j++;
             }
         }
-        if (exactNumberOfDuplications < 1) {
-            finArr = new String[0];
-        }
+//        if (exactNumberOfDuplications < 1) {
+//            finArr = new String[0];
+//        }
         return finArr;
 //        return new String[0];
     }
